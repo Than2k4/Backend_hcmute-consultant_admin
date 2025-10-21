@@ -17,6 +17,7 @@ const departments_module_1 = require("./modules/departments/departments.module")
 const post_module_1 = require("./modules/posts/post.module");
 const questions_module_1 = require("./modules/questions/questions.module");
 const answers_module_1 = require("./modules/answer/answers.module");
+const statistics_module_1 = require("./modules/statistics/statistics.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -30,7 +31,8 @@ exports.AppModule = AppModule = __decorate([
             departments_module_1.DepartmentsModule,
             post_module_1.PostsModule,
             questions_module_1.QuestionsModule,
-            answers_module_1.AnswersModule
+            answers_module_1.AnswersModule,
+            statistics_module_1.StatisticsModule,
         ],
     })
 ], AppModule);

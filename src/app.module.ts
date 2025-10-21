@@ -7,6 +7,7 @@ import { DepartmentsModule } from './modules/departments/departments.module'; //
 import { PostsModule } from './modules/posts/post.module'; // 👈 Thêm dòng này
 import { QuestionsModule } from './modules/questions/questions.module';
 import { AnswersModule } from './modules/answer/answers.module';
+import { StatisticsModule } from './modules/statistics/statistics.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -16,7 +17,8 @@ import { AnswersModule } from './modules/answer/answers.module';
     DepartmentsModule, 
     PostsModule, 
     QuestionsModule,
-    AnswersModule
+    AnswersModule,
+    StatisticsModule,
   ],
 })
 export class AppModule {}

@@ -26,12 +26,37 @@ let DepartmentsService = class DepartmentsService {
     async findAllDepartmentsWithFields() {
         const departments = await this.departmentModel.find().lean();
         const results = await Promise.all(departments.map(async (dept) => {
-            const fields = await this.fieldModel
-                .find({ department: dept._id })
-                .lean();
+            const fields = await this.fieldModel.find({ department: dept._id }).lean();
             return { ...dept, fields };
         }));
         return results;
+    }
+    async findDepartmentById(id) {
+        if (!mongoose_2.Types.ObjectId.isValid(id))
+            return null;
+        const department = await this.departmentModel.findById(id).lean();
+        if (!department)
+            return null;
+        const fields = await this.fieldModel.find({ department: id }).lean();
+        return { ...department, fields };
+    }
+    async updateDepartment(id, updateData) {
+        return this.departmentModel.findByIdAndUpdate(id, updateData, { new: true }).lean();
+    }
+    async deleteDepartment(id) {
+        await this.fieldModel.deleteMany({ department: id });
+        await this.departmentModel.findByIdAndDelete(id);
+    }
+    async findFieldById(id) {
+        if (!mongoose_2.Types.ObjectId.isValid(id))
+            return null;
+        return this.fieldModel.findById(id).populate('department').lean();
+    }
+    async updateField(id, updateData) {
+        return this.fieldModel.findByIdAndUpdate(id, updateData, { new: true }).lean();
+    }
+    async deleteField(id) {
+        await this.fieldModel.findByIdAndDelete(id);
     }
 };
 exports.DepartmentsService = DepartmentsService;

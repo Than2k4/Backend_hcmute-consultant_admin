@@ -34,7 +34,7 @@ let UserService = class UserService {
             .lean();
     }
     async softDelete(id) {
-        return this.userModel.findByIdAndUpdate(id, { statusDelete: true }, { new: true });
+        return this.userModel.findByIdAndDelete(id);
     }
 };
 exports.UserService = UserService;

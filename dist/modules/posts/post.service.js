@@ -18,15 +18,6 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const post_schema_1 = require("./schemas/post.schema");
 let PostsService = class PostsService {
-    deletePost(id) {
-        throw new Error('Method not implemented.');
-    }
-    updatePost(id, body) {
-        throw new Error('Method not implemented.');
-    }
-    createPost(body, userId) {
-        throw new Error('Method not implemented.');
-    }
     constructor(postModel) {
         this.postModel = postModel;
     }
@@ -35,16 +26,6 @@ let PostsService = class PostsService {
     }
     async findById(id) {
         return this.postModel.findById(id).populate('user', 'username email').lean();
-    }
-    async create(postData, userId) {
-        const newPost = new this.postModel({
-            ...postData,
-            user: new mongoose_2.Types.ObjectId(userId),
-        });
-        return newPost.save();
-    }
-    async update(id, updateData) {
-        return this.postModel.findByIdAndUpdate(id, updateData, { new: true });
     }
     async delete(id) {
         return this.postModel.findByIdAndDelete(id);

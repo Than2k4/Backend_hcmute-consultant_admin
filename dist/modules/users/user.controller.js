@@ -48,7 +48,7 @@ let UserController = class UserController {
             if (!deletedUser) {
                 return new response_1.ExceptionResponse(404, 'Không tìm thấy người dùng để xóa');
             }
-            return new response_1.DataResponse(200, 'Xóa người dùng thành công', deletedUser);
+            return new response_1.DataResponse(200, 'Xóa người dùng vĩnh viễn thành công', deletedUser);
         }
         catch (error) {
             return new response_1.ExceptionResponse(500, 'Lỗi khi xóa người dùng', error.message);

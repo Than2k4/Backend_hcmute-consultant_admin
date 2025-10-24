@@ -8,18 +8,6 @@ import { Request } from 'express';
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
-  @UseGuards(AdminGuard) // 👈 kiểm tra token/role
-  @Post()
-  async create(@Body() body: any, @Req() req: Request) {
-    try {
-      const userId = (req as any).user.id;
-      const post = await this.postsService.createPost(body, userId);
-      return new DataResponse(201, 'Tạo bài viết thành công', post);
-    } catch (error) {
-      return new ExceptionResponse(500, 'Lỗi khi tạo bài viết', error.message);
-    }
-  }
-
   @Get()
   async getAll() {
     try {
@@ -41,21 +29,10 @@ export class PostsController {
   }
 
   @UseGuards(AdminGuard)
-  @Put(':id')
-  async update(@Param('id') id: string, @Body() body: any) {
-    try {
-      const post = await this.postsService.updatePost(id, body);
-      return new DataResponse(200, 'Cập nhật bài viết thành công', post);
-    } catch (error) {
-      return new ExceptionResponse(500, 'Lỗi khi cập nhật bài viết', error.message);
-    }
-  }
-
-  @UseGuards(AdminGuard)
   @Delete(':id')
   async delete(@Param('id') id: string) {
     try {
-      await this.postsService.deletePost(id);
+      await this.postsService.delete(id);
       return new DataResponse(200, 'Xóa bài viết thành công', null);
     } catch (error) {
       return new ExceptionResponse(404, 'Không tìm thấy bài viết để xóa', error.message);

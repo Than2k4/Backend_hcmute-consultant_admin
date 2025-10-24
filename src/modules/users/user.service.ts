@@ -23,12 +23,8 @@ export class UserService {
       .lean();
   }
 
-  // ✅ Xóa mềm người dùng (soft delete)
+  // ✅ Xóa người dùng
   async softDelete(id: string): Promise<User | null> {
-    return this.userModel.findByIdAndUpdate(
-      id,
-      { statusDelete: true },
-      { new: true },
-    );
+    return this.userModel.findByIdAndDelete(id);
   }
 }

@@ -36,8 +36,6 @@ let QuestionsService = class QuestionsService {
             .populate('user', 'name email role')
             .populate('department', 'name')
             .populate('field', 'name')
-            .populate('subQuestions')
-            .populate('answers')
             .exec();
     }
     async deleteQuestion(id) {

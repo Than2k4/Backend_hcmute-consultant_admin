@@ -11,7 +11,7 @@ import { AdminGuard } from '../../common/guards/admin.guard'; // Kiểm tra toke
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   // ✅ Lấy tất cả người dùng
   @UseGuards(AdminGuard)
@@ -48,7 +48,7 @@ export class UserController {
     }
   }
 
-  // ✅ Xóa người dùng (soft delete)
+  // ✅ Xóa vĩnh viễn người dùng
   @UseGuards(AdminGuard)
   @Delete(':id')
   async deleteUser(@Param('id') id: string) {
@@ -57,7 +57,7 @@ export class UserController {
       if (!deletedUser) {
         return new ExceptionResponse(404, 'Không tìm thấy người dùng để xóa');
       }
-      return new DataResponse(200, 'Xóa người dùng thành công', deletedUser);
+      return new DataResponse(200, 'Xóa người dùng vĩnh viễn thành công', deletedUser);
     } catch (error) {
       return new ExceptionResponse(
         500,

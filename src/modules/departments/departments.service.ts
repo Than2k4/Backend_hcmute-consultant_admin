@@ -22,6 +22,11 @@ export class DepartmentsService {
     return results;
   }
 
+  async createDepartment(createData: any) {
+    const newDepartment = new this.departmentModel(createData);
+    return await newDepartment.save();
+  }
+
   //  Chi tiết department
   async findDepartmentById(id: string) {
     if (!Types.ObjectId.isValid(id)) return null;
@@ -42,6 +47,19 @@ export class DepartmentsService {
     await this.departmentModel.findByIdAndDelete(id);
   }
 
+  async createField(createData: any) {
+  const { name, department } = createData;
+  const departmentId = new Types.ObjectId(department);
+  const deptExists = await this.departmentModel.findById(departmentId);
+  if (!deptExists) throw new Error('Khoa không tồn tại');
+  const newField = new this.fieldModel({
+    name,
+    department: departmentId, // ✅ dùng ObjectId thật
+  });
+
+  return await newField.save();
+}
+  
   //  Chi tiết field
   async findFieldById(id: string) {
     if (!Types.ObjectId.isValid(id)) return null;

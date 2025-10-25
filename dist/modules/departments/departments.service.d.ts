@@ -20,6 +20,11 @@ export declare class DepartmentsService {
         _id: Types.ObjectId;
         __v: number;
     }[]>;
+    createDepartment(createData: any): Promise<import("mongoose").Document<unknown, {}, Department, {}, {}> & Department & {
+        _id: Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
     findDepartmentById(id: string): Promise<{
         fields: (import("mongoose").FlattenMaps<{
             name: string;
@@ -45,6 +50,11 @@ export declare class DepartmentsService {
         __v: number;
     }>;
     deleteDepartment(id: string): Promise<void>;
+    createField(createData: any): Promise<import("mongoose").Document<unknown, {}, Field, {}, {}> & Field & {
+        _id: Types.ObjectId;
+    } & {
+        __v: number;
+    }>;
     findFieldById(id: string): Promise<import("mongoose").FlattenMaps<{
         name: string;
         department: Types.ObjectId;

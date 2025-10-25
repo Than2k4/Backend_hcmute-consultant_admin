@@ -31,6 +31,10 @@ let DepartmentsService = class DepartmentsService {
         }));
         return results;
     }
+    async createDepartment(createData) {
+        const newDepartment = new this.departmentModel(createData);
+        return await newDepartment.save();
+    }
     async findDepartmentById(id) {
         if (!mongoose_2.Types.ObjectId.isValid(id))
             return null;
@@ -46,6 +50,18 @@ let DepartmentsService = class DepartmentsService {
     async deleteDepartment(id) {
         await this.fieldModel.deleteMany({ department: id });
         await this.departmentModel.findByIdAndDelete(id);
+    }
+    async createField(createData) {
+        const { name, department } = createData;
+        const departmentId = new mongoose_2.Types.ObjectId(department);
+        const deptExists = await this.departmentModel.findById(departmentId);
+        if (!deptExists)
+            throw new Error('Khoa không tồn tại');
+        const newField = new this.fieldModel({
+            name,
+            department: departmentId,
+        });
+        return await newField.save();
     }
     async findFieldById(id) {
         if (!mongoose_2.Types.ObjectId.isValid(id))

@@ -4,6 +4,7 @@ import {
   Param,
   Delete,
   Patch,
+  Post,
   Body,
   UseGuards,
 } from '@nestjs/common';
@@ -15,6 +16,7 @@ import { DataResponse, ExceptionResponse } from '../../common/response';
 export class DepartmentsController {
   constructor(private readonly departmentsService: DepartmentsService) {}
 
+  // Lấy tất cả departments kèm fields
   @UseGuards(AdminGuard)
   @Get()
   async getAllDepartments() {
@@ -24,6 +26,18 @@ export class DepartmentsController {
     } catch (error) {
       console.error(error);
       return new ExceptionResponse(500, 'Lỗi khi lấy danh sách khoa');
+    }
+  }
+
+  @UseGuards(AdminGuard)
+  @Post()
+  async createDepartment(@Body() createData: any) {
+    try {
+      const data = await this.departmentsService.createDepartment(createData);
+      return new DataResponse(201, 'Thêm khoa mới thành công', data);
+    } catch (error) {
+      console.error(error);
+      return new ExceptionResponse(500, 'Lỗi khi thêm khoa mới');
     }
   }
 
@@ -67,6 +81,18 @@ export class DepartmentsController {
     }
   }
 
+  @UseGuards(AdminGuard)
+  @Post('field')
+  async createField(@Body() createData: any) {
+    try {
+      const data = await this.departmentsService.createField(createData);
+      return new DataResponse(201, 'Thêm lĩnh vực mới thành công', data);
+    } catch (error) {
+      console.error(error);
+      return new ExceptionResponse(500, 'Lỗi khi thêm lĩnh vực mới');
+    }
+  }
+  
   // Xem chi tiết field
   @UseGuards(AdminGuard)
   @Get('field/:id')

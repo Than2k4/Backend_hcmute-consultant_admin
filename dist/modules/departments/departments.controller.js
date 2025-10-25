@@ -31,6 +31,16 @@ let DepartmentsController = class DepartmentsController {
             return new response_1.ExceptionResponse(500, 'Lỗi khi lấy danh sách khoa');
         }
     }
+    async createDepartment(createData) {
+        try {
+            const data = await this.departmentsService.createDepartment(createData);
+            return new response_1.DataResponse(201, 'Thêm khoa mới thành công', data);
+        }
+        catch (error) {
+            console.error(error);
+            return new response_1.ExceptionResponse(500, 'Lỗi khi thêm khoa mới');
+        }
+    }
     async getDepartmentById(id) {
         try {
             const data = await this.departmentsService.findDepartmentById(id);
@@ -61,6 +71,16 @@ let DepartmentsController = class DepartmentsController {
         catch (error) {
             console.error(error);
             return new response_1.ExceptionResponse(500, 'Lỗi khi xóa khoa');
+        }
+    }
+    async createField(createData) {
+        try {
+            const data = await this.departmentsService.createField(createData);
+            return new response_1.DataResponse(201, 'Thêm lĩnh vực mới thành công', data);
+        }
+        catch (error) {
+            console.error(error);
+            return new response_1.ExceptionResponse(500, 'Lỗi khi thêm lĩnh vực mới');
         }
     }
     async getFieldById(id) {
@@ -106,6 +126,14 @@ __decorate([
 ], DepartmentsController.prototype, "getAllDepartments", null);
 __decorate([
     (0, common_1.UseGuards)(admin_guard_1.AdminGuard),
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], DepartmentsController.prototype, "createDepartment", null);
+__decorate([
+    (0, common_1.UseGuards)(admin_guard_1.AdminGuard),
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -129,6 +157,14 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], DepartmentsController.prototype, "deleteDepartment", null);
+__decorate([
+    (0, common_1.UseGuards)(admin_guard_1.AdminGuard),
+    (0, common_1.Post)('field'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], DepartmentsController.prototype, "createField", null);
 __decorate([
     (0, common_1.UseGuards)(admin_guard_1.AdminGuard),
     (0, common_1.Get)('field/:id'),

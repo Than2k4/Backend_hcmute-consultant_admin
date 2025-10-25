@@ -13,7 +13,7 @@ export class AnswersService {
   async findAllAnswers() {
     return this.answerModel
       .find()
-      .populate('user', 'name email role')
+      .populate('user', 'username email role')
       .populate('question', 'title')
       .sort({ createdAt: -1 })
       .exec();

@@ -19,6 +19,9 @@ export class User {
   role!: string;
 
   @Prop()
+  username?: string;
+
+  @Prop()
   firstName?: string;
 
   @Prop()

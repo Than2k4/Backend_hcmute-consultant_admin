@@ -11,15 +11,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var _a, _b;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const user_service_1 = require("./user.service");
 const response_1 = require("../../common/response");
 const admin_guard_1 = require("../../common/guards/admin.guard");
+const express_1 = require("express");
+const express_2 = require("express");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
+    }
+    async addConsultant(body, req, res) {
+        try {
+            const adminUser = req.user;
+            const consultant = await this.userService.addConsultant(body, adminUser);
+            return res.status(201).json(new response_1.DataResponse(201, 'Đã thêm tư vấn viên thành công', consultant));
+        }
+        catch (error) {
+            return res
+                .status(error.status || 400)
+                .json(new response_1.ExceptionResponse(error.status || 400, error.message || 'Lỗi khi thêm tư vấn viên'));
+        }
     }
     async getAllUsers() {
         try {
@@ -33,9 +48,8 @@ let UserController = class UserController {
     async getUserById(id) {
         try {
             const user = await this.userService.findById(id);
-            if (!user) {
+            if (!user)
                 return new response_1.ExceptionResponse(404, 'Không tìm thấy người dùng');
-            }
             return new response_1.DataResponse(200, 'Lấy thông tin người dùng thành công', user);
         }
         catch (error) {
@@ -45,10 +59,9 @@ let UserController = class UserController {
     async deleteUser(id) {
         try {
             const deletedUser = await this.userService.softDelete(id);
-            if (!deletedUser) {
+            if (!deletedUser)
                 return new response_1.ExceptionResponse(404, 'Không tìm thấy người dùng để xóa');
-            }
-            return new response_1.DataResponse(200, 'Xóa người dùng vĩnh viễn thành công', deletedUser);
+            return new response_1.DataResponse(200, 'Xóa người dùng thành công', deletedUser);
         }
         catch (error) {
             return new response_1.ExceptionResponse(500, 'Lỗi khi xóa người dùng', error.message);
@@ -56,6 +69,16 @@ let UserController = class UserController {
     }
 };
 exports.UserController = UserController;
+__decorate([
+    (0, common_1.UseGuards)(admin_guard_1.AdminGuard),
+    (0, common_1.Post)('add-consultant'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
+    __param(2, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, typeof (_a = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _a : Object, typeof (_b = typeof express_2.Response !== "undefined" && express_2.Response) === "function" ? _b : Object]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "addConsultant", null);
 __decorate([
     (0, common_1.UseGuards)(admin_guard_1.AdminGuard),
     (0, common_1.Get)(),

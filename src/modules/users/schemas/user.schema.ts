@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
+import { Department } from '../../departments/schemas/department.schema';
 
 export type UserDocument = User & Document;
 
@@ -19,6 +20,9 @@ export class User {
   role!: string;
 
   @Prop()
+  phone?: string;
+
+  @Prop()
   username?: string;
 
   @Prop()
@@ -27,8 +31,9 @@ export class User {
   @Prop()
   lastName?: string;
 
-  @Prop()
-  department?: string;
+  @Prop({ type: Types.ObjectId, ref: 'Department' })
+  department: Department;
+
 
   @Prop()
   refreshToken?: string;

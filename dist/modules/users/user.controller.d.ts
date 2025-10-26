@@ -6,7 +6,7 @@ export declare class UserController {
     private readonly userService;
     constructor(userService: UserService);
     addConsultant(body: any, req: Request, res: Response): Promise<any>;
-    getAllUsers(): Promise<DataResponse | ExceptionResponse>;
-    getUserById(id: string): Promise<DataResponse | ExceptionResponse>;
-    deleteUser(id: string): Promise<DataResponse | ExceptionResponse>;
+    getAllUsers(): Promise<ExceptionResponse | DataResponse>;
+    getUserById(id: string): Promise<ExceptionResponse | DataResponse>;
+    deleteUser(id: string): Promise<ExceptionResponse | DataResponse>;
 }

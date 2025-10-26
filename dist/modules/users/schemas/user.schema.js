@@ -27,7 +27,7 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({
         required: true,
-        enum: ['USER', 'TUVANVIEN', 'TRUONGBANTUVAN', 'ADMIN'],
+        enum: ['USER', 'TUVANVIEN', 'ADMIN'],
         default: 'USER',
     }),
     __metadata("design:type", String)
@@ -40,6 +40,10 @@ __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)
 ], User.prototype, "username", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    __metadata("design:type", String)
+], User.prototype, "fullname", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),
     __metadata("design:type", String)

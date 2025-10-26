@@ -7,6 +7,7 @@ export declare class User {
     role: string;
     phone?: string;
     username?: string;
+    fullname?: string;
     firstName?: string;
     lastName?: string;
     department: Department;

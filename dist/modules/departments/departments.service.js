@@ -48,8 +48,16 @@ let DepartmentsService = class DepartmentsService {
         return this.departmentModel.findByIdAndUpdate(id, updateData, { new: true }).lean();
     }
     async deleteDepartment(id) {
-        await this.fieldModel.deleteMany({ department: id });
+        if (!mongoose_2.Types.ObjectId.isValid(id)) {
+            throw new Error('ID khoa không hợp lệ');
+        }
+        const department = await this.departmentModel.findById(id);
+        if (!department) {
+            throw new Error('Khoa không tồn tại');
+        }
+        await this.fieldModel.deleteMany({ department: new mongoose_2.Types.ObjectId(id) });
         await this.departmentModel.findByIdAndDelete(id);
+        return { message: 'Đã xóa khoa và tất cả lĩnh vực thuộc khoa đó' };
     }
     async createField(createData) {
         const { name, department } = createData;

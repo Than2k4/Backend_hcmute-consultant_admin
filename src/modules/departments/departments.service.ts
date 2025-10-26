@@ -42,10 +42,26 @@ export class DepartmentsService {
   }
 
   //  Xóa department (và các field thuộc về nó)
-  async deleteDepartment(id: string) {
-    await this.fieldModel.deleteMany({ department: id });
-    await this.departmentModel.findByIdAndDelete(id);
+ async deleteDepartment(id: string) {
+  // Kiểm tra ObjectId hợp lệ
+  if (!Types.ObjectId.isValid(id)) {
+    throw new Error('ID khoa không hợp lệ');
   }
+
+  // Kiểm tra department có tồn tại không
+  const department = await this.departmentModel.findById(id);
+  if (!department) {
+    throw new Error('Khoa không tồn tại');
+  }
+
+  // Xóa toàn bộ field thuộc về department này
+  await this.fieldModel.deleteMany({ department: new Types.ObjectId(id) });
+
+  // Xóa department
+  await this.departmentModel.findByIdAndDelete(id);
+
+  return { message: 'Đã xóa khoa và tất cả lĩnh vực thuộc khoa đó' };
+}
 
   async createField(createData: any) {
   const { name, department } = createData;

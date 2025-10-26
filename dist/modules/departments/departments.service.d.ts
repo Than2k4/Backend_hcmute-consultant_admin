@@ -49,7 +49,9 @@ export declare class DepartmentsService {
     } & {
         __v: number;
     }>;
-    deleteDepartment(id: string): Promise<void>;
+    deleteDepartment(id: string): Promise<{
+        message: string;
+    }>;
     createField(createData: any): Promise<import("mongoose").Document<unknown, {}, Field, {}, {}> & Field & {
         _id: Types.ObjectId;
     } & {

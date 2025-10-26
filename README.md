@@ -17,7 +17,6 @@ Hệ thống cung cấp API cho ứng dụng Admin, quản lý người dùng, p
 - [Environment Variables](#-environment-variables)  
 - [Run Commands](#-run-commands)  
 - [API Overview](#-api-overview)  
-- [Author](#-author)
 
 ---
 
